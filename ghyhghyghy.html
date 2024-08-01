@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حقوق البش مهندس فهد</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background: linear-gradient(to bottom, #006400, #000000);
+            color: white;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            background-color: #808080;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        button:hover {
+            transform: scale(1.2);
+            background-color: #696969;
+        }
+        .moving-button {
+            position: absolute;
+        }
+        .question {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="question1" class="question">
+        <h1>السؤال الأول</h1>
+        <p>كم عمرك؟</p>
+        <button onclick="showNextQuestion(2)">أقل من 18</button>
+        <button onclick="showNextQuestion(2)">أكثر من 18</button>
+    </div>
+
+    <div id="question2" class="question">
+        <h1>السؤال الثاني</h1>
+        <p>ما هي وجبتك المفضلة؟</p>
+        <button onclick="showNextQuestion(3)">بيتزا</button>
+        <button onclick="showNextQuestion(3)">برجر</button>
+    </div>
+
+    <div id="question3" class="question">
+        <h1>السؤال الثالث</h1>
+        <p>دولة تريد السفر لها؟</p>
+        <button onclick="showNextQuestion(4)">فرنسا</button>
+        <button onclick="showNextQuestion(4)">اليابان</button>
+    </div>
+
+    <div id="question4" class="question">
+        <h1>السؤال الرابع</h1>
+        <p>هل تحب القطط؟</p>
+        <button onclick="showNextQuestion(5)">نعم</button>
+        <button onclick="showMessage()">لا</button>
+    </div>
+
+    <div id="question5" class="question">
+        <h1>السؤال الخامس</h1>
+        <p>هل تخاف المرتفعات؟</p>
+        <button onclick="showNextQuestion(6)">نعم</button>
+        <button onclick="showNextQuestion(6)">لا</button>
+    </div>
+
+    <div id="question6" class="question">
+        <h1>السؤال السادس</h1>
+        <p>ما هو لونك المفضل؟</p>
+        <button onclick="showNextQuestion(7)">الغامق</button>
+        <button onclick="showNextQuestion(7)">الفاتح</button>
+    </div>
+
+    <div id="question7" class="question">
+        <h1>السؤال السابع</h1>
+        <p>نظامك المفضل؟</p>
+        <button onclick="showNextQuestion(8)">أبل</button>
+        <button onclick="showNextQuestion(8)">آندرويد</button>
+    </div>
+
+    <div id="question8" class="question">
+        <h1>السؤال الثامن</h1>
+        <p>ايهما تفضل؟</p>
+        <button onclick="showNextQuestion(9)">أنمي</button>
+        <button onclick="showNextQuestion(9)">مسلسل واقعي</button>
+    </div>
+
+    <div id="question9" class="question">
+        <h1>السؤال التاسع</h1>
+        <p>هل تشعر غالبًا بالخمول؟</p>
+        <button onclick="showNextQuestion(10)">نعم</button>
+        <button onclick="showNextQuestion(10)">لا</button>
+    </div>
+
+    <div id="question10" class="question">
+        <h1>السؤال العاشر</h1>
+        <p>هل أنت غبي؟</p>
+        <button id="noButton" onclick="moveButton()">لا</button>
+        <button onclick="showFinalMessage()">نعم</button>
+    </div>
+
+    <script>
+        let currentQuestion = 1;
+        let fastClicksCount = 0;
+        let lastClickTime = new Date().getTime();
+
+        document.getElementById(`question${currentQuestion}`).style.display = 'block';
+
+        function showNextQuestion(nextQuestion) {
+            const currentTime = new Date().getTime();
+            const timeDifference = (currentTime - lastClickTime) / 1000;
+
+            if (timeDifference <= 2) {
+                fastClicksCount++;
+            } else {
+                fastClicksCount = 0;
+            }
+
+            if (fastClicksCount >= 3) {
+                playVideo();
+                return;
+            }
+
+            lastClickTime = currentTime;
+
+            document.getElementById(`question${currentQuestion}`).style.display = 'none';
+            currentQuestion = nextQuestion;
+            document.getElementById(`question${currentQuestion}`).style.display = 'block';
+        }
+
+        function moveButton() {
+            const button = document.getElementById('noButton');
+            const maxWidth = window.innerWidth - button.offsetWidth;
+            const maxHeight = window.innerHeight - button.offsetHeight;
+            const randomX = Math.random() * maxWidth;
+            const randomY = Math.random() * maxHeight;
+            button.style.left = `${randomX}px`;
+            button.style.top = `${randomY}px`;
+        }
+
+        function showMessage() {
+            alert("عذرا لا يمكنك المواصلة لأنك شرير");
+        }
+
+        function showFinalMessage() {
+            alert("كنت أعرف ذلك (؛");
+        }
+
+        function playVideo() {
+            window.location.href = "https://youtube.com/shorts/XEiQ203kxfg?si=onGf3oCMwGhQpNPm";
+        }
+    </script>
+</body>
+</html>
